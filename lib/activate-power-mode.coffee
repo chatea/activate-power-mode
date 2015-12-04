@@ -157,7 +157,7 @@ module.exports = ActivatePowerMode =
       )
 
   drawCombo: ->
-    return if @combo == 0
+    return if @combo <= 1
     @context.save()
     @context.font = @combTextSize + "px Verdan"
     @combTextSize -= 1 if @combTextSize >= 50
