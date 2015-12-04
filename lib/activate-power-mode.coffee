@@ -160,14 +160,14 @@ module.exports = ActivatePowerMode =
     return if @combo <= 1
     @context.save()
     @context.font = @combTextSize + "px Verdan"
-    @combTextSize -= 1 if @combTextSize >= 50
+    @combTextSize -= 1 if @combTextSize >= 55
     gradient = @context.createLinearGradient 0, 0, 0, @canvas.height * 0.1
     gradient.addColorStop "0", "orange"
     gradient.addColorStop "0.5", "yellow"
     gradient.addColorStop "1.0","red"
     @context.fillStyle = gradient
     @context.textAlign = "center"
-    text = @combo + " COMBO"
+    text = @combo + " COMBO!"
     comboPosX = @canvas.width * 0.8
     comboPosY = @canvas.height * 0.1
     @context.fillText text, comboPosX, comboPosY
