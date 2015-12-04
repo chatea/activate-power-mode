@@ -63,8 +63,8 @@ module.exports = ActivatePowerMode =
       if e.newText isnt ''
         # replacing will keep combo
         @combo += 1
-      else if e.oldText.trim() is ''
-        # allow deleting space/enter for typesetting.
+      else if e.oldText.trim() is '' and e.oldText.indexOf("\n") < 0
+        # allow deleting space for typesetting.
         @combo = @combo
       else
         # delete some character(s), reset combo
