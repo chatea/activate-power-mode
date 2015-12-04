@@ -111,7 +111,7 @@ module.exports = ActivatePowerMode =
       @particlePointer = (@particlePointer + 1) % 500
 
   comboTextShake: ->
-      @combTextSize = 70
+      @comboTextSize = 70
 
   getColorAtPosition: (left, top) ->
     offset = @editorElement.getBoundingClientRect()
@@ -159,8 +159,8 @@ module.exports = ActivatePowerMode =
   drawCombo: ->
     return if @combo <= 1
     @context.save()
-    @context.font = @combTextSize + "px Verdan"
-    @combTextSize -= 1 if @combTextSize >= 55
+    @context.font = @comboTextSize + "px Verdan"
+    @comboTextSize -= 1 if @comboTextSize >= 55
     gradient = @context.createLinearGradient 0, 0, 0, @canvas.height * 0.1
     gradient.addColorStop "0", "orange"
     gradient.addColorStop "0.5", "yellow"
@@ -177,5 +177,4 @@ module.exports = ActivatePowerMode =
     console.log 'ActivatePowerMode was toggled!'
     @particlePointer = 0
     @particles = []
-    @combTextSize = 50
     requestAnimationFrame @drawEffects.bind(this)
