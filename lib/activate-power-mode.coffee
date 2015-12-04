@@ -23,7 +23,6 @@ module.exports = ActivatePowerMode =
     @editorElement.classList.add "power-mode"
 
     @subscriptions.add @editor.getBuffer().onDidChange(@onChange.bind(this))
-    @subscriptions.add @editor.getBuffer().onWillChange(@onComboWillChange.bind(this))
     @subscriptions.add @editor.getBuffer().onDidChange(@onComboDidChange.bind(this))
     @setupCanvas()
 
@@ -53,11 +52,6 @@ module.exports = ActivatePowerMode =
     @throttledSpawnParticles(range) if spawnParticles
     @throttledShake()
 
-  onComboWillChange: (e) ->
-    pos = @editor.getCursorScreenPosition()
-    @cursorRow = pos.row
-    @cursorColumn = pos.column
-
   onComboDidChange: (e) ->
     if e.oldText is '' and e.newText is ''
       # do nothing
@@ -67,17 +61,14 @@ module.exports = ActivatePowerMode =
       @combo += 1
     else if e.oldText isnt ''
       if e.newText isnt ''
-        # replacing case
+        # replacing will keep combo
         @combo += 1
+      else if e.oldText.trim() is ''
+        # allow deleting space/enter for typesetting.
+        @combo = @combo
       else
-        # something are deleted...
-        pos = @editor.getCursorScreenPosition()
-        if pos.row is @cursorRow and pos.column is @cursorColumn
-          # auto triming
-          @combo = @combo
-        else
-          # delete character case
-          @combo = 0
+        # delete some character(s), reset combo
+        @combo = 0
     else
       # input character case
       @combo += 1
